@@ -7,6 +7,7 @@ This guide will help you configure OAuth authentication for your Abstorm app.
 The OAuth implementation supports multiple providers:
 - GitHub
 - Google
+- X (formerly Twitter)
 - Extensible for other providers
 
 ## Setup Steps
@@ -22,6 +23,8 @@ GITHUB_CLIENT_ID=your-github-client-id
 GITHUB_CLIENT_SECRET=your-github-client-secret
 GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=your-google-client-secret
+X_CLIENT_ID=your-x-client-id
+X_CLIENT_SECRET=your-x-client-secret
 ```
 
 ### 2. Create OAuth Applications
@@ -44,6 +47,18 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret
    - **Name**: Your app name
    - **Authorized redirect URIs**: `https://your-domain.com/api/auth/callback/google`
 5. Copy the **Client ID** and **Client Secret**
+
+#### X (Twitter) OAuth App
+1. Go to [X Developer Portal](https://developer.twitter.com/en/portal/dashboard)
+2. Apply for API access if you haven't already
+3. Create a new app or select an existing one
+4. Go to your app's settings and find "Authentication settings"
+5. Configure OAuth 2.0 settings:
+   - **App permissions**: Read users and tweets
+   - **Type of App**: Web App
+   - **Callback URI**: `https://your-domain.com/api/auth/callback/x`
+   - **Website URL**: `https://your-domain.com`
+6. Copy the **Client ID** and **Client Secret** from the "Keys and tokens" tab
 
 ### 3. Update Cloudflare Workers Environment
 

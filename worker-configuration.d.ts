@@ -10,6 +10,8 @@ declare namespace Cloudflare {
 		GITHUB_CLIENT_SECRET?: string;
 		GOOGLE_CLIENT_ID?: string;
 		GOOGLE_CLIENT_SECRET?: string;
+		X_CLIENT_ID?: string;
+		X_CLIENT_SECRET?: string;
 	}
 }
 interface Env extends Cloudflare.Env {}

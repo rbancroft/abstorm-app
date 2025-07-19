@@ -92,7 +92,7 @@ For detailed setup instructions, see [docs/OAUTH_SETUP.md](docs/OAUTH_SETUP.md).
 
 ### OAuth Features
 
-- Multiple provider support (GitHub, Google)
+- Multiple provider support (GitHub, Google, X)
 - Secure JWT-based sessions
 - CSRF protection with state parameters
 - Automatic session management

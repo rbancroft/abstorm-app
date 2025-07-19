@@ -14,3 +14,7 @@ GITHUB_CLIENT_SECRET=your-development-github-client-secret
 # Google OAuth (for local development, use ngrok or similar for public callback)  
 GOOGLE_CLIENT_ID=your-development-google-client-id.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=your-development-google-client-secret
+
+# X OAuth (for local development, use ngrok or similar for public callback)
+X_CLIENT_ID=your-development-x-client-id
+X_CLIENT_SECRET=your-development-x-client-secret

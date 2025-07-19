@@ -45,6 +45,16 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.x-btn {
+  background-color: #000000;
+  color: white;
+}
+
+.x-btn:hover {
+  background-color: #1a1a1a;
+  transform: translateY(-1px);
+}
+
 .login-btn:active {
   transform: translateY(0);
 }

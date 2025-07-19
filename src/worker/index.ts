@@ -49,6 +49,14 @@ interface GoogleUser {
   picture: string;
 }
 
+interface XUser {
+  id: string;
+  username: string;
+  name: string;
+  profile_image_url?: string;
+  email?: string;
+}
+
 const app = new Hono<{ Bindings: Env }>();
 
 // Helper function to get OAuth provider configuration
@@ -81,6 +89,19 @@ function getOAuthProvider(provider: string, env: Env): OAuthProvider | null {
         authUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
         tokenUrl: 'https://oauth2.googleapis.com/token',
         userUrl: 'https://www.googleapis.com/oauth2/v2/userinfo'
+      };
+    case 'x':
+      if (!env.X_CLIENT_ID || !env.X_CLIENT_SECRET) {
+        return null;
+      }
+      return {
+        clientId: env.X_CLIENT_ID,
+        clientSecret: env.X_CLIENT_SECRET,
+        redirectUri: `${baseUrl}/api/auth/callback/x`,
+        scope: 'tweet.read users.read offline.access',
+        authUrl: 'https://twitter.com/i/oauth2/authorize',
+        tokenUrl: 'https://api.twitter.com/2/oauth2/token',
+        userUrl: 'https://api.twitter.com/2/users/me'
       };
     default:
       return null;
@@ -231,6 +252,15 @@ app.get("/api/auth/callback/:provider", async (c) => {
         name: googleUser.name,
         avatar: googleUser.picture,
         provider: 'google'
+      };
+    } else if (provider === 'x') {
+      const xUser = userData as XUser;
+      user = {
+        id: xUser.id,
+        email: xUser.email || `${xUser.username}@x.com`, // X doesn't always provide email
+        name: xUser.name || xUser.username,
+        avatar: xUser.profile_image_url,
+        provider: 'x'
       };
     } else {
       throw new Error('Unsupported provider');
