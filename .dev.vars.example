@@ -1,0 +1,16 @@
+# Development Environment Configuration
+# For local development with wrangler dev
+
+# Copy this to .dev.vars for local development
+# Note: .dev.vars should be added to .gitignore
+
+BASE_URL=http://localhost:8787
+JWT_SECRET=development-jwt-secret-key-change-in-production
+
+# GitHub OAuth (for local development, use ngrok or similar for public callback)
+GITHUB_CLIENT_ID=your-development-github-client-id
+GITHUB_CLIENT_SECRET=your-development-github-client-secret
+
+# Google OAuth (for local development, use ngrok or similar for public callback)  
+GOOGLE_CLIENT_ID=your-development-google-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-development-google-client-secret

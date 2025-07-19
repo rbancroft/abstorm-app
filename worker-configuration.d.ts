@@ -3,6 +3,13 @@
 // Runtime types generated with workerd@1.20250617.0 2025-04-01 nodejs_compat
 declare namespace Cloudflare {
 	interface Env {
+		// OAuth Environment Variables
+		BASE_URL?: string;
+		JWT_SECRET?: string;
+		GITHUB_CLIENT_ID?: string;
+		GITHUB_CLIENT_SECRET?: string;
+		GOOGLE_CLIENT_ID?: string;
+		GOOGLE_CLIENT_SECRET?: string;
 	}
 }
 interface Env extends Cloudflare.Env {}

@@ -6,8 +6,11 @@ import viteLogo from "/vite.svg";
 import cloudflareLogo from "./assets/Cloudflare_Logo.svg";
 import honoLogo from "./assets/hono.svg";
 import "./App.css";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { LoginButton } from "./components/LoginButton";
+import { UserProfile } from "./components/UserProfile";
 
-function App() {
+function AppContent() {
   const [count, setCount] = useState(0);
   const [name, setName] = useState("unknown");
   const [version, setVersion] = useState<{
@@ -16,6 +19,8 @@ function App() {
     buildTime: string;
     timestamp: string;
   } | null>(null);
+  
+  const { isAuthenticated } = useAuth();
 
   return (
     <>
@@ -38,6 +43,13 @@ function App() {
         </a>
       </div>
       <h1>Vite + React + Hono + Cloudflare</h1>
+      
+      {/* OAuth Authentication Section */}
+      <div className="card">
+        <h2>Authentication</h2>
+        {isAuthenticated ? <UserProfile /> : <LoginButton />}
+      </div>
+      
       <div className="card">
         <button
           onClick={() => setCount((count) => count + 1)}
@@ -89,6 +101,14 @@ function App() {
       </div>
       <p className="read-the-docs">Click on the logos to learn more</p>
     </>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 

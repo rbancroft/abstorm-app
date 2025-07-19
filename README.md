@@ -23,6 +23,9 @@ This template provides a minimal setup for building a React application with Typ
 - ⚡ Zero-config deployment to Cloudflare's global network
 - 🎯 API routes with Hono's elegant routing
 - 🔄 Full-stack development setup
+- 🔐 **OAuth Authentication** - GitHub and Google login support
+- 🛡️ **Secure Sessions** - JWT-based authentication with secure cookies
+- 👤 **User Management** - Complete user profile and session handling
 
 Get started in minutes with local development or deploy directly via the Cloudflare dashboard. Perfect for building modern, performant web applications at the edge.
 
@@ -74,6 +77,33 @@ Deploy your project to Cloudflare Workers:
 ```bash
 npm run build && npm run deploy
 ```
+
+## OAuth Authentication
+
+This template includes a complete OAuth authentication system supporting GitHub and Google login.
+
+### Quick Setup
+
+1. **Set Environment Variables**: Configure OAuth credentials in your Cloudflare Workers environment
+2. **Create OAuth Apps**: Set up GitHub and/or Google OAuth applications
+3. **Configure Callback URLs**: Use `https://your-domain.com/api/auth/callback/{provider}`
+
+For detailed setup instructions, see [docs/OAUTH_SETUP.md](docs/OAUTH_SETUP.md).
+
+### OAuth Features
+
+- Multiple provider support (GitHub, Google)
+- Secure JWT-based sessions
+- CSRF protection with state parameters
+- Automatic session management
+- User profile display and logout
+
+### API Endpoints
+
+- `GET /api/auth/login/:provider` - Initiate OAuth login
+- `GET /api/auth/callback/:provider` - Handle OAuth callback
+- `GET /api/auth/user` - Get current user info
+- `POST /api/auth/logout` - Logout user
 
 ## Additional Resources
 
