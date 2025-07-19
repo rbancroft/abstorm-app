@@ -1,0 +1,1 @@
+This project will use the Boost Sofware License 1.0.
