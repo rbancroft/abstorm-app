@@ -6,7 +6,8 @@ import { sign, verify } from "hono/jwt";
 const VERSION_INFO = {
   version: "__VERSION__",
   commitHash: "__COMMIT_HASH__", 
-  buildTime: "__BUILD_TIME__"
+  buildTime: "__BUILD_TIME__",
+  commitMessage: "__COMMIT_MESSAGE__"
 };
 
 interface User {
@@ -151,6 +152,7 @@ app.get("/api/version", (c) => {
     version: VERSION_INFO.version,
     commitHash: VERSION_INFO.commitHash,
     buildTime: VERSION_INFO.buildTime,
+    commitMessage: VERSION_INFO.commitMessage,
     timestamp: new Date().toISOString()
   });
 });
