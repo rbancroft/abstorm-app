@@ -10,6 +10,12 @@ import "./App.css";
 function App() {
   const [count, setCount] = useState(0);
   const [name, setName] = useState("unknown");
+  const [version, setVersion] = useState<{
+    version: string;
+    commitHash: string;
+    buildTime: string;
+    timestamp: string;
+  } | null>(null);
 
   return (
     <>
@@ -46,7 +52,7 @@ function App() {
       <div className="card">
         <button
           onClick={() => {
-            fetch("/api/")
+            fetch("/api/version")
               .then((res) => res.json() as Promise<{ name: string }>)
               .then((data) => setName(data.name));
           }}
@@ -56,6 +62,29 @@ function App() {
         </button>
         <p>
           Edit <code>worker/index.ts</code> to change the name
+        </p>
+      </div>
+      <div className="card">
+        <button
+          onClick={() => {
+            fetch("/api/version")
+              .then((res) => res.json())
+              .then((data) => setVersion(data));
+          }}
+          aria-label="get version"
+        >
+          Get Version Info
+        </button>
+        {version && (
+          <div style={{ marginTop: "10px", fontSize: "12px", textAlign: "left" }}>
+            <p><strong>Version:</strong> {version.version}</p>
+            <p><strong>Commit:</strong> {version.commitHash}</p>
+            <p><strong>Build Time:</strong> {version.buildTime}</p>
+            <p><strong>Request Time:</strong> {version.timestamp}</p>
+          </div>
+        )}
+        <p>
+          Click to get server version information
         </p>
       </div>
       <p className="read-the-docs">Click on the logos to learn more</p>

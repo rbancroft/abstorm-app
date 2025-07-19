@@ -1,7 +1,7 @@
 {
   "name": "abstorm-app",
   "description": "A template for building a React application with Vite, Hono, and Cloudflare Workers",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "cloudflare": {
     "label": "Vite React Template",
     "products": [
@@ -36,10 +36,10 @@
     "wrangler": "4.21.x"
   },
   "scripts": {
-    "build": "tsc -b && vite build",
+    "build": "node build-version.js inject && tsc -b && vite build && node build-version.js restore",
     "cf-typegen": "wrangler types",
     "check": "tsc && vite build && wrangler deploy --dry-run",
-    "deploy": "wrangler deploy",
+    "deploy": "npm run build && wrangler deploy",
     "dev": "vite",
     "lint": "eslint .",
     "preview": "npm run build && vite preview"
