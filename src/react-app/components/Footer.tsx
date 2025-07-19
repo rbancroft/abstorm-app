@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Footer.css';
 import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg";
@@ -6,6 +6,25 @@ import cloudflareLogo from "../assets/Cloudflare_Logo.svg";
 import honoLogo from "../assets/hono.svg";
 
 export const Footer: React.FC = () => {
+  const [versionInfo, setVersionInfo] = useState<{
+    commitHash: string;
+    commitMessage: string;
+    branch: string;
+  } | null>(null);
+
+  useEffect(() => {
+    fetch("/api/version")
+      .then((res) => res.json())
+      .then((data) => setVersionInfo({
+        commitHash: data.commitHash,
+        commitMessage: data.commitMessage,
+        branch: data.branch
+      }))
+      .catch(() => {
+        // Silently fail if API is not available
+      });
+  }, []);
+
   return (
     <footer className="app-footer">
       <div className="footer-content">
@@ -45,6 +64,24 @@ export const Footer: React.FC = () => {
             <img src={cloudflareLogo} className="tech-icon" alt="Cloudflare" />
           </a>
         </div>
+        
+        {versionInfo && (
+          <>
+            <div className="footer-divider version-divider">|</div>
+            <div className="version-info">
+              <span className="version-branch">{versionInfo.branch}:</span>
+              <a 
+                href={`https://github.com/rbancroft/abstorm-app/commit/${versionInfo.commitHash.split(' ')[0]}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="commit-link"
+                title={`View commit ${versionInfo.commitHash}`}
+              >
+                {versionInfo.commitMessage}
+              </a>
+            </div>
+          </>
+        )}
       </div>
     </footer>
   );
