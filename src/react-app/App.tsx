@@ -15,6 +15,7 @@ function AppContent() {
     commitHash: string;
     buildTime: string;
     commitMessage: string;
+    branch: string;
     timestamp: string;
   } | null>(null);
   
@@ -68,6 +69,7 @@ function AppContent() {
         {version && (
           <div style={{ marginTop: "10px", fontSize: "12px", textAlign: "left" }}>
             <p><strong>Version:</strong> {version.version}</p>
+            <p><strong>Branch:</strong> {version.branch}</p>
             <p><strong>Commit:</strong> {version.commitHash}</p>
             <p><strong>Commit Summary:</strong> {version.commitMessage}</p>
             <p><strong>Build Time:</strong> {version.buildTime}</p>

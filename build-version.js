@@ -35,6 +35,14 @@ function getGitCommitMessage() {
   }
 }
 
+function getGitBranch() {
+  try {
+    return execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf8' }).trim();
+  } catch (error) {
+    return 'unknown';
+  }
+}
+
 function getBuildTime() {
   return new Date().toISOString();
 }
@@ -47,6 +55,7 @@ function injectVersionInfo() {
   const commitHash = getGitShortCommitHash();
   const fullCommitHash = getGitCommitHash();
   const commitMessage = getGitCommitMessage();
+  const branch = getGitBranch();
   const buildTime = getBuildTime();
   
   // Replace placeholders with actual values
@@ -54,12 +63,14 @@ function injectVersionInfo() {
     .replace('__VERSION__', version)
     .replace('__COMMIT_HASH__', `${commitHash} (${fullCommitHash})`)
     .replace('__BUILD_TIME__', buildTime)
-    .replace('__COMMIT_MESSAGE__', commitMessage);
+    .replace('__COMMIT_MESSAGE__', commitMessage)
+    .replace('__BRANCH__', branch);
   
   writeFileSync(workerPath, workerContent);
   
   console.log(`✅ Version info injected:`);
   console.log(`   Version: ${version}`);
+  console.log(`   Branch: ${branch}`);
   console.log(`   Commit: ${commitHash} (${fullCommitHash})`);
   console.log(`   Commit Summary: ${commitMessage}`);
   console.log(`   Build Time: ${buildTime}`);
@@ -75,7 +86,8 @@ function restorePlaceholders() {
     .replace(/version: "[^"]*"/, 'version: "__VERSION__"')
     .replace(/commitHash: "[^"]*"/, 'commitHash: "__COMMIT_HASH__"')
     .replace(/buildTime: "[^"]*"/, 'buildTime: "__BUILD_TIME__"')
-    .replace(/commitMessage: "[^"]*"/s, 'commitMessage: "__COMMIT_MESSAGE__"');
+    .replace(/commitMessage: "[^"]*"/s, 'commitMessage: "__COMMIT_MESSAGE__"')
+    .replace(/branch: "[^"]*"/, 'branch: "__BRANCH__"');
   
   writeFileSync(workerPath, workerContent);
 }

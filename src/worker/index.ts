@@ -7,7 +7,8 @@ const VERSION_INFO = {
   version: "__VERSION__",
   commitHash: "__COMMIT_HASH__", 
   buildTime: "__BUILD_TIME__",
-  commitMessage: "__COMMIT_MESSAGE__"
+  commitMessage: "__COMMIT_MESSAGE__",
+  branch: "__BRANCH__"
 };
 
 interface User {
@@ -153,6 +154,7 @@ app.get("/api/version", (c) => {
     commitHash: VERSION_INFO.commitHash,
     buildTime: VERSION_INFO.buildTime,
     commitMessage: VERSION_INFO.commitMessage,
+    branch: VERSION_INFO.branch,
     timestamp: new Date().toISOString()
   });
 });
