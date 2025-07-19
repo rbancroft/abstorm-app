@@ -6,7 +6,9 @@ import { sign, verify } from "hono/jwt";
 const VERSION_INFO = {
   version: "__VERSION__",
   commitHash: "__COMMIT_HASH__", 
-  buildTime: "__BUILD_TIME__"
+  buildTime: "__BUILD_TIME__",
+  commitMessage: "__COMMIT_MESSAGE__",
+  branch: "__BRANCH__"
 };
 
 interface User {
@@ -144,13 +146,15 @@ async function verifyUserToken(token: string, env: Env): Promise<User | null> {
   }
 }
 
-app.get("/api/", (c) => c.json({ name: "Cloudflare" }));
+app.get("/api", (c) => c.json({ name: "Cloudflare" }));
 
 app.get("/api/version", (c) => {
   return c.json({
     version: VERSION_INFO.version,
     commitHash: VERSION_INFO.commitHash,
     buildTime: VERSION_INFO.buildTime,
+    commitMessage: VERSION_INFO.commitMessage,
+    branch: VERSION_INFO.branch,
     timestamp: new Date().toISOString()
   });
 });

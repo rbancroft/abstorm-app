@@ -1,7 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Footer.css';
+import reactLogo from "../assets/react.svg";
+import viteLogo from "/vite.svg";
+import cloudflareLogo from "../assets/Cloudflare_Logo.svg";
+import honoLogo from "../assets/hono.svg";
 
 export const Footer: React.FC = () => {
+  const [versionInfo, setVersionInfo] = useState<{
+    commitHash: string;
+    commitMessage: string;
+    branch: string;
+  } | null>(null);
+
+  useEffect(() => {
+    fetch("/api/version")
+      .then((res) => res.json())
+      .then((data) => setVersionInfo({
+        commitHash: data.commitHash,
+        commitMessage: data.commitMessage,
+        branch: data.branch
+      }))
+      .catch(() => {
+        // Silently fail if API is not available
+      });
+  }, []);
+
   return (
     <footer className="app-footer">
       <div className="footer-content">
@@ -23,10 +46,42 @@ export const Footer: React.FC = () => {
           </svg>
           <span className="github-text">View on GitHub</span>
         </a>
+        
         <div className="footer-divider">|</div>
-        <span className="footer-info">
-          Built with React + Vite + Hono + Cloudflare Workers
-        </span>
+        
+        <div className="tech-links">
+          <span className="footer-info">Built with</span>
+          <a href="https://vite.dev" target="_blank" rel="noopener noreferrer" className="tech-link" aria-label="Vite" title="Vite - Next Generation Frontend Tooling">
+            <img src={viteLogo} className="tech-icon" alt="Vite" />
+          </a>
+          <a href="https://react.dev" target="_blank" rel="noopener noreferrer" className="tech-link" aria-label="React" title="React - A JavaScript library for building user interfaces">
+            <img src={reactLogo} className="tech-icon" alt="React" />
+          </a>
+          <a href="https://hono.dev/" target="_blank" rel="noopener noreferrer" className="tech-link" aria-label="Hono" title="Hono - Ultrafast web framework for the Edges">
+            <img src={honoLogo} className="tech-icon" alt="Hono" />
+          </a>
+          <a href="https://workers.cloudflare.com/" target="_blank" rel="noopener noreferrer" className="tech-link" aria-label="Cloudflare Workers" title="Cloudflare Workers - Serverless platform for building applications">
+            <img src={cloudflareLogo} className="tech-icon" alt="Cloudflare" />
+          </a>
+        </div>
+        
+        {versionInfo && (
+          <>
+            <div className="footer-divider version-divider">|</div>
+            <div className="version-info">
+              <span className="version-branch">{versionInfo.branch}:</span>
+              <a 
+                href={`https://github.com/rbancroft/abstorm-app/commit/${versionInfo.commitHash.split(' ')[0]}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="commit-link"
+                title={`View commit ${versionInfo.commitHash}`}
+              >
+                {versionInfo.commitMessage}
+              </a>
+            </div>
+          </>
+        )}
       </div>
     </footer>
   );
