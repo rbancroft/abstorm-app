@@ -144,7 +144,7 @@ async function verifyUserToken(token: string, env: Env): Promise<User | null> {
   }
 }
 
-app.get("/api/", (c) => c.json({ name: "Cloudflare" }));
+app.get("/api", (c) => c.json({ name: "Cloudflare" }));
 
 app.get("/api/version", (c) => {
   return c.json({
