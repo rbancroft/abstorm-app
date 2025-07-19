@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.6",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "abstorm-app",
+  "dataLicense": "CC0-1.0",
+  "creationInfo": {
+    "created": "2025-01-01T00:00:00Z",
+    "creators": ["Tool: CycloneDX"]
+  },
+  "documentNamespace": "https://github.com/rbancroft/abstorm-app",
+  "packages": []
+}

@@ -28,3 +28,11 @@ dist-ssr
 .env.local
 .env.production
 .dev.vars
+
+# SBOM files (can be regenerated)
+sbom.json
+sbom.xml
+trivy-results.sarif
+
+# Security scan results
+*.sarif

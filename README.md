@@ -105,9 +105,36 @@ For detailed setup instructions, see [docs/OAUTH_SETUP.md](docs/OAUTH_SETUP.md).
 - `GET /api/auth/user` - Get current user info
 - `POST /api/auth/logout` - Logout user
 
+## Security & Compliance
+
+### SBOM Generation
+
+This project includes automated Software Bill of Materials (SBOM) generation for security and compliance:
+
+```bash
+# Generate SBOM locally
+npm run sbom:generate          # JSON format
+npm run sbom:generate-xml      # XML format
+
+# Upload to Dependency Track
+npm run sbom:upload           # Upload to your Dependency Track server
+npm run sbom:all             # Generate and upload
+```
+
+**Key Features:**
+- 🔍 **CycloneDX format** for maximum compatibility
+- 🤖 **Automated CI/CD integration** via GitHub Actions  
+- 🛡️ **Vulnerability scanning** with Trivy integration
+- 📊 **Dependency Track integration** for security monitoring
+- 📅 **Weekly automated scans** for continuous monitoring
+
+For detailed setup instructions, see [docs/SBOM_INTEGRATION.md](docs/SBOM_INTEGRATION.md).
+
 ## Additional Resources
 
 - [Cloudflare Workers Documentation](https://developers.cloudflare.com/workers/)
 - [Vite Documentation](https://vitejs.dev/guide/)
 - [React Documentation](https://reactjs.org/)
 - [Hono Documentation](https://hono.dev/)
+- [OAuth Setup Guide](docs/OAUTH_SETUP.md)
+- [SBOM Integration Guide](docs/SBOM_INTEGRATION.md)
