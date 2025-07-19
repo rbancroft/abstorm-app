@@ -9,6 +9,7 @@ import "./App.css";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { LoginButton } from "./components/LoginButton";
 import { UserProfile } from "./components/UserProfile";
+import { Footer } from "./components/Footer";
 
 function AppContent() {
   const [count, setCount] = useState(0);
@@ -100,6 +101,7 @@ function AppContent() {
         </p>
       </div>
       <p className="read-the-docs">Click on the logos to learn more</p>
+      <Footer />
     </>
   );
 }
